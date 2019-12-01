@@ -1,0 +1,5 @@
+     1	                   akshat	                      cse	 10000	    20
+     2	                    akash	                      cse	  1000	    19
+     3	                   akshay	                      ise	    50	    19
+     4	                     amit	                      ise	    50	    19
+     5	                  sankalp	                     mech	    10	    18

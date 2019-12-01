@@ -1,0 +1,206 @@
+#include <stdio.h>
+#include <stdlib.h>
+struct node
+{
+
+    int data;
+    struct node * link;
+};
+typedef struct node * NODE;
+NODE insert_rear(NODE);
+NODE insert_front(NODE);
+NODE delete_rear(NODE);
+NODE delete_front(NODE);
+NODE insert_at_pos(NODE);
+NODE reverse(NODE);
+void display(NODE);
+
+int main()
+{   NODE s=NULL;
+    int ch;
+
+
+
+    while(1)
+    {
+        printf("enter choice 1:insert rear,2:insert front,3:delete rear,4:delete front,5:insert at pos,6:delete at pos,7:display,8 exit");
+         scanf("%d",&ch);
+
+         switch(ch)
+            {
+
+                case 1:s=insert_rear(s);break;
+                case 2:s=insert_front(s);break;
+                case 3:s=delete_rear(s);break;
+                case 4:s=delete_front(s);break;
+                case 5:s=insert_at_pos(s);break;
+                case 6:s=reverse(s);break;
+                case 7:display(s);break;
+                case 8: exit(0);
+            }
+    }
+    return 0;
+}
+
+void display(NODE t)
+    {
+        if(t==NULL)
+        {
+            printf("No list to display");return;
+        }
+
+        while(t!=NULL)
+        {
+            printf("%d->",t->data);
+            t=t->link;
+        }
+    }
+NODE insert_rear(NODE s1)
+
+    {
+        int data;
+        NODE temp,cur=NULL;
+
+        if((temp=(NODE)malloc(sizeof(struct node)))==NULL)
+            {
+
+                printf("NO MEMORY ALLCOATED"); return;
+            }
+        printf("enter data\n");
+        scanf("%d",&data);
+        temp->data=data;
+        temp->link=NULL;
+
+        if(s1==NULL)
+            {
+                return(temp);
+            }
+
+        cur=s1;
+        while(cur->link!=NULL)
+        {
+            cur=cur->link;
+        }
+        cur->link=temp;
+        return(s1);
+    }
+
+NODE insert_front(NODE s1)
+
+    {
+        int data;
+        NODE temp;
+
+        if((temp=(NODE) malloc(sizeof(struct node)))==NULL)
+            {
+
+                printf("NO MEMORY ALLCOATED"); return;
+            }
+        printf("enter data\n");
+        scanf("%d",&data);
+        temp->data=data;
+        temp->link=NULL;
+
+        if(s1==NULL)
+            {
+                return(temp);
+            }
+            temp->link= s1;
+            s1=temp;
+
+            return(s1);
+    }
+NODE delete_rear(NODE s1)
+{
+        NODE cur,prev;
+        cur=prev=NULL;
+     if(s1==NULL)
+            {
+                printf("No List \n");return;
+            }
+
+        cur=s1;
+        while(cur->link!=NULL)
+        {
+            prev=cur;
+            cur=cur->link;
+
+        }
+        printf("Deleted NODE:%d",cur->data);
+        prev->link=NULL;
+        free(cur);
+        return(s1);
+}
+NODE delete_front(NODE s1)
+{
+     NODE cur;
+        cur=NULL;
+     if(s1==NULL)
+            {
+                printf("No List \n");return;
+            }
+
+        cur=s1;
+        s1=s1->link;
+         printf("Deleted NODE:%d",cur->data);
+        free(cur);
+        return(s1);
+}
+NODE insert_at_pos(NODE s1)
+{       int data,pos,count;
+      NODE cur,prev,temp;
+        cur=prev=NULL;
+
+
+        if((temp=(NODE) malloc(sizeof(struct node)))==NULL)
+            {
+
+                printf("NO MEMORY ALLCOATED"); return;
+            }
+                printf("Enter the data and position");
+                scanf("%d%d",&data,&pos);
+
+        temp->data=data;
+        temp->link=NULL;
+
+
+        if(s1==NULL && pos==1)
+            {
+                s1=temp; return(s1);
+            }
+             if(s1==NULL)
+            {
+                printf("No List \n");return;
+            }
+            if(pos==1)
+            {temp->link=s1;s1=temp;return(s1);}
+
+        cur=s1;
+        count =1;
+        while(cur!=NULL &&count!=pos)
+        {
+            prev=cur;
+            cur=cur->link;
+            count++;
+
+        }
+
+        if(count==pos)
+        {
+            prev->link=temp;
+            temp->link=cur;
+        }
+        return(s1);
+}
+NODE reverse(NODE s1)
+{   NODE cur=NULL,prev=NULL;
+    //cur=s1;
+    while(s1!=NULL)
+    {
+       cur=s1;
+       s1=s1->link;
+       cur->link=prev;
+       prev=cur;
+    }
+    return(prev);
+}
